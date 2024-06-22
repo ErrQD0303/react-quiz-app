@@ -144,11 +144,28 @@ progress {
   float: right;
 }
 
+.btn-ui-left,
+.btn-ui-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 12.5rem;
+}
+
+.btn-ui-left {
+  left: -30%;
+}
+
+.btn-ui-right {
+  right: -30%;
+}
+
 .options {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
   margin-bottom: 3.2rem;
+  position: relative;
 }
 
 .btn-option {

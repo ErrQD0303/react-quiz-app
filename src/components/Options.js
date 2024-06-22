@@ -1,8 +1,9 @@
-function Options({ question, dispatch, answer }) {
+function Options({ question, dispatch, answer, children }) {
   const hasAnswered = answer !== null;
 
   return (
     <div className="options">
+      {children}
       {question.options.map((option, index) => (
         <button
           className={`btn btn-option ${index === answer ? "answer" : ""} ${

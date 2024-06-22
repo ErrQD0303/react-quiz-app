@@ -4,7 +4,7 @@
 
 ## Upload the HighScore to the Fake API ✅
 
-## Show answer in an array instead of single value
+## Show answer in an array instead of single value ✅
 
 ### Extra Information about json-server
 

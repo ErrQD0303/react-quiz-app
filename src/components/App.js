@@ -29,7 +29,8 @@ function reducer(state, action) {
     case "dataReceived":
       return {
         ...state,
-        questions: action.payload,
+        questions: action.payload.questions,
+        highscore: action.payload.highscore,
         status: "ready",
       };
     case "dataFailed":
@@ -96,11 +97,42 @@ export default function App() {
   );
 
   useEffect(function () {
-    fetch("http://localhost:8000/questions")
-      .then((res) => res.json())
-      .then((data) => dispatch({ type: "dataReceived", payload: data }))
+    const fetchQuestions = fetch("http://localhost:8000/questions").then(
+      (res) => res.json()
+    );
+    const fetchHighscore = fetch("http://localhost:8000/appData").then((res) =>
+      res.json()
+    );
+
+    Promise.all([fetchQuestions, fetchHighscore])
+      .then(([questions, { highscore }]) => {
+        dispatch({ type: "dataReceived", payload: { questions, highscore } });
+      })
       .catch((err) => dispatch({ type: "dataFailed" }));
   }, []);
+
+  /* Handle Write highscore to files */
+  useEffect(
+    function () {
+      const handleUnload = () => {
+        fetch("http://localhost:8000/appData", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ highscore }),
+        }).then((res) => {
+          if (!res.ok) throw new Error("Failed to update highscore");
+        });
+      };
+      window.addEventListener("beforeunload", handleUnload);
+
+      return () => {
+        window.removeEventListener("beforeunload", handleUnload);
+      };
+    },
+    [highscore]
+  );
 
   return (
     <div className="app">
@@ -143,7 +175,7 @@ export default function App() {
             <FinishScreen
               points={points}
               maxPossiblePoints={maxPossiblePoints}
-              hightscore={highscore}
+              highscore={highscore}
             />
             <RestartButton dispatch={dispatch} />
           </>

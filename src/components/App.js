@@ -77,6 +77,7 @@ function reducer(state, action) {
         ...initialState,
         questions: state.questions,
         answers: Array.from({ length: state.questions.length }, () => null),
+        highscore: state.highscore,
         status: "ready",
       };
     // return {

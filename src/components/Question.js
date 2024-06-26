@@ -1,12 +1,18 @@
 import { useEffect } from "react";
 import Button from "./Button";
 import Options from "./Options";
+import { useQuiz } from "../contextx/QuizContext";
 
-function Question({ question, dispatch, answer, hasNext, hasPrev }) {
+function Question() {
+  const { questions, index, numQuestions, dispatch } = useQuiz();
+  const question = questions[index];
+  const hasNext = index >= 0 && index < numQuestions - 1;
+  const hasPrev = index > 0 && index < numQuestions;
+
   return (
     <div>
       <h4>{question.question}</h4>
-      <Options question={question} dispatch={dispatch} answer={answer}>
+      <Options>
         <>
           {hasNext && (
             <Button

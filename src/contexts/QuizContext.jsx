@@ -120,7 +120,7 @@ function QuizProvider({ children }) {
   /* Handle Write highscore to files */
   useEffect(
     function () {
-      const handleUnload = () => {
+      async function updateHighscore() {
         fetch("http://localhost:8000/appData", {
           method: "PUT",
           headers: {
@@ -130,12 +130,8 @@ function QuizProvider({ children }) {
         }).then((res) => {
           if (!res.ok) throw new Error("Failed to update highscore");
         });
-      };
-      window.addEventListener("beforeunload", handleUnload);
-
-      return () => {
-        window.removeEventListener("beforeunload", handleUnload);
-      };
+      }
+      updateHighscore();
     },
     [highscore]
   );

@@ -1,4 +1,4 @@
-import { useQuiz } from "../contextx/QuizContext";
+import { useQuiz } from "../contexts/QuizContext";
 
 function StartScreen() {
   const { numQuestions, dispatch } = useQuiz();

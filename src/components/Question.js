@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Button from "./Button";
 import Options from "./Options";
-import { useQuiz } from "../contextx/QuizContext";
+import { useQuiz } from "../contexts/QuizContext";
 
 function Question() {
   const { questions, index, numQuestions, dispatch } = useQuiz();

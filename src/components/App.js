@@ -11,7 +11,7 @@ import FinishScreen from "./FinishScreen";
 import RestartButton from "./ResetButton";
 import Footer from "./Footer";
 import Timer from "./Timer";
-import { useQuiz } from "../contextx/QuizContext";
+import { useQuiz } from "../contexts/QuizContext";
 
 export default function App() {
   const { status } = useQuiz();
